@@ -1,0 +1,14 @@
+.btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 20px;
+  border: 1px solid var(--border2);
+  background: var(--bg3);
+  color: var(--text2);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 500;
+  cursor: none;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.btn:hover { background: var(--bg4); border-color: var(--border3); color: var(--text); }
+.icon { display: flex; align-items: center; color: var(--accent); }
+.label { letter-spacing: 0.02em; }

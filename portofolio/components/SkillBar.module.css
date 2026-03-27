@@ -1,0 +1,10 @@
+.item { margin-bottom: 16px; }
+.top { display:flex; justify-content:space-between; margin-bottom:7px; }
+.name { font-size:13px; font-weight:500; color:var(--text); }
+.lv { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text3); }
+.track { height:3px; background:var(--bg4); border-radius:2px; overflow:hidden; }
+.fill {
+  height:100%; border-radius:2px;
+  background: linear-gradient(90deg, var(--accent), var(--cyan));
+  transition: width 1.1s cubic-bezier(0.4,0,0.2,1) 0.1s;
+}
