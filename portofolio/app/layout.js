@@ -10,6 +10,9 @@ export const metadata = {
     description: 'Frontend Developer & Software Engineer based in Jakarta, Indonesia.',
     type: 'website',
   },
+  icons: {
+    icon: '/favicon.JPG',
+  },
 }
 
 export default function RootLayout({ children }) {
