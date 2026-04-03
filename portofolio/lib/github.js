@@ -17,51 +17,64 @@ const headers = {
 const PROJECT_META = {
   'visitor-management': {
     emoji: '🏢',
+    displayName: 'CATOS Visitor Management System',
     description:
-      'Visitor management web application developed as a personal thesis project at Kalbis Institute. Handles visitor registration, check-in/out tracking, and reporting. Includes academic journal documentation.',
+      'Built for CATOS to digitize visitor registration and check-in/out tracking. Eliminated manual logbooks, reduced front-desk processing time, and generated automated daily reports. Published as academic thesis with journal documentation.',
     highlight: true,
+    show: true,
   },
   'e-ticketeer-PHP-Native': {
     emoji: '🎫',
+    displayName: 'E-Ticketeer — Event Ticketing Platform',
     description:
-      'E-ticketing platform built with native PHP. Features ticket creation, event management, user registration, and booking flows — no framework dependency.',
+      'Full-cycle e-ticketing platform built with native PHP. Streamlined event creation, ticket booking, and payment flows for event organizers — reducing manual coordination overhead with a self-service system.',
     highlight: true,
+    show: true,
   },
   'juice-PHP-Native': {
     emoji: '🍊',
+    displayName: 'Juice Shop — Freelance Ordering System',
     description:
-      'Juice ordering web app with product catalog, cart, and order management. Built with native PHP and JavaScript for a clean, lightweight frontend.',
-    highlight: false,
+      'Freelance project for a junior high school peer. Built a product catalog, cart, and order management system with native PHP and JavaScript, enabling the client to manage online orders independently.',
+    highlight: true,
+    show: true,
   },
   'Otomovice-HTML-Website': {
     emoji: '🚗',
+    displayName: 'Otomovice — Automotive Landing Page',
     description:
-      'Automotive-themed landing website showcasing front-end layout mastery — responsive design, clean CSS grid, and smooth scrolling interactions.',
+      'Responsive automotive-themed landing website showcasing front-end layout mastery — clean CSS grid, smooth scrolling interactions, and mobile-first design.',
     highlight: false,
+    show: true,
   },
   'BE-Absensi': {
     emoji: '📋',
+    displayName: 'Kolose Gonzaga Attendance System',
     description:
-      'Backend REST API for an attendance management system. Handles authentication, employee records, and attendance logging. Paired with FE-Absensi for a full-stack solution.',
+      'Full-stack attendance system built for Kolose Gonzaga. Replaced manual paper-based attendance with a digital platform — cutting weekly admin processing time significantly. Comprises a REST API backend and a dedicated frontend interface.',
     highlight: true,
+    show: true,
   },
   'FE-Absensi': {
-    emoji: '📱',
-    description:
-      'Frontend interface for the Absensi attendance system. Consumes the BE-Absensi REST API. Actively developed as of March 2026.',
-    highlight: true,
+    emoji: null,
+    displayName: null,
+    description: null,
+    highlight: false,
+    show: false, // merged into BE-Absensi display
   },
   'logic-332': {
     emoji: '🧠',
-    description:
-      'Logic and algorithm exercises repository — a collection of programming challenges and solutions demonstrating problem-solving skills.',
+    displayName: 'Logic & Algorithm Exercises',
+    description: 'Collection of programming challenges and algorithm solutions.',
     highlight: false,
+    show: false,
   },
   RS: {
     emoji: '🏥',
-    description:
-      'Hospital or Records System web application with CSS-heavy layout design. Demonstrates form design, data display, and structured UI composition.',
+    displayName: 'Hospital Records System',
+    description: 'Hospital records web application with structured UI and form design.',
     highlight: false,
+    show: false,
   },
 }
 
@@ -92,9 +105,10 @@ export async function getGithubRepos() {
 
     return repos
       .filter((r) => !r.fork)
+      .filter((r) => PROJECT_META[r.name]?.show !== false)
       .map((repo) => ({
         id: repo.id,
-        name: repo.name,
+        name: PROJECT_META[repo.name]?.displayName || repo.name,
         full_name: repo.full_name,
         description: PROJECT_META[repo.name]?.description || repo.description || 'A project by Matthew Cahyadi.',
         emoji: PROJECT_META[repo.name]?.emoji || '⚙️',

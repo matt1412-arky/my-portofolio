@@ -107,7 +107,7 @@ export const SKILLS = {
   mobile: [
     { name: 'Flutter', level: 70, label: 'Intermediate' },
   ],
-  tools: ['Git', 'GitHub', 'MS Excel', 'Data Entry'],
+  tools: ['REST API', 'CI/CD', 'Agile/Scrum', 'Data Entry'],
   soft: ['Team Work', 'Time Management', 'Critical Thinking', 'Target Oriented', 'Problem Solving'],
 }
 
