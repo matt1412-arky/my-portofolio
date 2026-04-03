@@ -250,13 +250,8 @@ export default async function Home() {
           </div>
           <Reveal>
             <div className={s.viewAll}>
-              <a
-                href="https://github.com/matt1412-arky"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={s.btnOutline}
-              >
-                View all {totalRepos} repos on GitHub <ArrowR />
+              <a href="/projects" className={s.btnOutline}>
+                View all {totalRepos} projects <ArrowR />
               </a>
             </div>
           </Reveal>

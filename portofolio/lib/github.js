@@ -94,7 +94,50 @@ export async function getGithubProfile() {
 export async function getGithubRepos() {
   try {
     const res = await fetch(
-      `${BASE}/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=18&type=public`,
+      `${BASE}/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100&type=public`,
+      {
+        headers,
+        next: { revalidate: 3600 },
+      }
+    )
+    if (!res.ok) throw new Error('GitHub repos fetch failed')
+    const repos = await res.json()
+
+    const allClean = repos
+      .filter((r) => !r.fork)
+      .map((repo) => ({
+        id: repo.id,
+        name: PROJECT_META[repo.name]?.displayName || repo.name,
+        repoKey: repo.name,
+        full_name: repo.full_name,
+        description: PROJECT_META[repo.name]?.description || repo.description || 'A project by Matthew Cahyadi.',
+        emoji: PROJECT_META[repo.name]?.emoji || '⚙️',
+        highlight: PROJECT_META[repo.name]?.highlight || false,
+        show: PROJECT_META[repo.name]?.show ?? false, // default false — must be explicitly allowed
+        html_url: repo.html_url,
+        homepage: repo.homepage || null,
+        language: repo.language,
+        stargazers_count: repo.stargazers_count,
+        forks_count: repo.forks_count,
+        updated_at: repo.updated_at,
+        topics: repo.topics || [],
+      }))
+
+    // Only 5 featured projects on homepage
+    const featured = allClean
+      .filter((r) => r.show)
+      .sort((a, b) => (b.highlight ? 1 : 0) - (a.highlight ? 1 : 0))
+
+    return featured
+  } catch {
+    return []
+  }
+}
+
+export async function getAllGithubRepos() {
+  try {
+    const res = await fetch(
+      `${BASE}/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100&type=public`,
       {
         headers,
         next: { revalidate: 3600 },
@@ -105,10 +148,10 @@ export async function getGithubRepos() {
 
     return repos
       .filter((r) => !r.fork)
-      .filter((r) => PROJECT_META[r.name]?.show !== false)
       .map((repo) => ({
         id: repo.id,
         name: PROJECT_META[repo.name]?.displayName || repo.name,
+        repoKey: repo.name,
         full_name: repo.full_name,
         description: PROJECT_META[repo.name]?.description || repo.description || 'A project by Matthew Cahyadi.',
         emoji: PROJECT_META[repo.name]?.emoji || '⚙️',
@@ -121,7 +164,7 @@ export async function getGithubRepos() {
         updated_at: repo.updated_at,
         topics: repo.topics || [],
       }))
-      .sort((a, b) => (b.highlight ? 1 : 0) - (a.highlight ? 1 : 0))
+      .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
   } catch {
     return []
   }
