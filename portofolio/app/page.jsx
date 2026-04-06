@@ -20,7 +20,7 @@ export default async function Home() {
     getGithubRepos(),
   ]);
 
-  const avatarUrl = ghProfile?.avatar_url || null;
+  const avatarUrl = "/avatar.png"; // local photo from public/
   const totalRepos = ghProfile?.public_repos || 18;
   const allRepos = [
     ...repos.filter((r) => r.highlight),
@@ -80,24 +80,22 @@ export default async function Home() {
               </a>
             </div>
           </div>
-          {avatarUrl && (
-            <div className={s.heroRight}>
-              <div className={s.avOuter}>
-                <div className={s.avRing} />
-                <Image
-                  src={avatarUrl}
-                  alt="Matthew Christian Cahyadi"
-                  width={260}
-                  height={260}
-                  className={s.av}
-                  priority
-                />
-                <div className={s.avBadge}>
-                  <span className={s.avDot} /> Open to work
-                </div>
+          <div className={s.heroRight}>
+            <div className={s.avOuter}>
+              <div className={s.avRing} />
+              <Image
+                src={avatarUrl}
+                alt="Matthew Christian Cahyadi"
+                width={260}
+                height={260}
+                className={s.av}
+                priority
+              />
+              <div className={s.avBadge}>
+                <span className={s.avDot} /> Open to work
               </div>
             </div>
-          )}
+          </div>
         </div>
         <div className={s.stats}>
           {[
